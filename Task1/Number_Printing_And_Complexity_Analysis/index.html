@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Printing & Complexity Analysis</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Number Printing Methods</h1>
+            <p>Explore different approaches to print numbers from 1 to n without trailing comma</p>
+        </div>
+
+        <div class="content">
+            <div class="input-section">
+                <h2>Test Input</h2>
+                <input type="number" id="numberInput" placeholder="Enter n (1-1000)" min="1" max="1000">
+                <div id="errorMessage" class="error"></div>
+                <div class="buttons">
+                    <button class="btn-method1" onclick="testMethod(1)">Loop with Check</button>
+                    <button class="btn-method2" onclick="testMethod(2)">Array Join</button>
+                    <button class="btn-method3" onclick="testMethod(3)">String Builder</button>
+                    <button class="btn-method4" onclick="testMethod(4)">Substring</button>
+                </div>
+            </div>
+
+            <!-- Method 1: Loop with Condition Check -->
+            <div class="method-section method1">
+                <div class="method-header">
+                    <div class="method-title">
+                        Method 1: Loop with Condition Check
+                        <span class="complexity-badge">Time: O(n) | Space: O(n)</span>
+                    </div>
+                </div>
+                <div class="method-body">
+                    <div class="code-block" data-lang="JavaScript">
+function printNumbers1(n) {
+    let result = "";
+    for (let i = 1; i <= n; i++) {
+        if (i === n) {
+            result += i;  // Last number, no comma
+        } else {
+            result += i + ", ";  // Add comma for all except last
+        }
+    }
+    return result;
+}</div>
+                    
+                    <div class="explanation">
+                        <strong>How it works:</strong> Check if current number is the last one. If yes, don't add comma.
+                    </div>
+                    
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>Pros</h4>
+                            <ul>
+                                <li>Simple logic</li>
+                                <li>Easy to understand</li>
+                                <li>Direct approach</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>Cons</h4>
+                            <ul>
+                                <li>Condition check in every iteration</li>
+                                <li>String concatenation overhead</li>
+                                <li>Not the most efficient</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="output-section hidden" id="output1">
+                        <div class="output-title">Output:</div>
+                        <div class="output-text" id="result1"></div>
+                        <div class="performance-metrics">
+                            <div class="metric-card">
+                                <div class="metric-value" id="time1">-</div>
+                                <div class="metric-label">Execution Time (ms)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Method 2: Array Join -->
+            <div class="method-section method2">
+                <div class="method-header">
+                    <div class="method-title">
+                        Method 2: Array Join
+                        <span class="complexity-badge">Time: O(n) | Space: O(n)</span>
+                    </div>
+                </div>
+                <div class="method-body">
+                    <div class="code-block" data-lang="JavaScript">
+function printNumbers2(n) {
+    const numbers = [];
+    for (let i = 1; i <= n; i++) {
+        numbers.push(i);
+    }
+    return numbers.join(", ");  // Join with comma separator
+}</div>
+                    
+                    <div class="explanation">
+                        <strong>How it works:</strong> Store all numbers in an array, then use join() to combine them with comma separator.
+                    </div>
+                    
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>Pros</h4>
+                            <ul>
+                                <li>Clean and readable</li>
+                                <li>Built-in join() is optimized</li>
+                                <li>No manual comma handling</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>Cons</h4>
+                            <ul>
+                                <li>Extra memory for array</li>
+                                <li>Two passes (fill + join)</li>
+                                <li>Array allocation overhead</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="output-section hidden" id="output2">
+                        <div class="output-title">Output:</div>
+                        <div class="output-text" id="result2"></div>
+                        <div class="performance-metrics">
+                            <div class="metric-card">
+                                <div class="metric-value" id="time2">-</div>
+                                <div class="metric-label">Execution Time (ms)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Method 3: String Builder Pattern -->
+            <div class="method-section method3">
+                <div class="method-header">
+                    <div class="method-title">
+                        Method 3: String Builder Pattern
+                        <span class="complexity-badge">Time: O(n) | Space: O(n)</span>
+                    </div>
+                </div>
+                <div class="method-body">
+                    <div class="code-block" data-lang="JavaScript">
+function printNumbers3(n) {
+    const parts = [];  // Acts as StringBuilder
+    for (let i = 1; i <= n; i++) {
+        parts.push(i);
+    }
+    return parts.join(", ");
+}
+
+// Alternative implementation:
+function printNumbers3Alt(n) {
+    let result = "";
+    if (n > 0) result += "1";  // Add first number
+    for (let i = 2; i <= n; i++) {
+        result += ", " + i;    // Add comma + number for rest
+    }
+    return result;
+}</div>
+                    
+                    <div class="explanation">
+                        <strong>String Builder Pattern:</strong> In languages like Java/C#, StringBuilder optimizes string concatenation by using an internal buffer. JavaScript arrays with join() provide similar optimization.
+                        <br><br>
+                        <strong>Origin:</strong> String Builder pattern comes from the need to efficiently build strings without creating many intermediate string objects. It's built into languages like Java (StringBuilder), C# (StringBuilder), Python (list + join).
+                    </div>
+                    
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>Pros</h4>
+                            <ul>
+                                <li>Optimized for string building</li>
+                                <li>Avoids intermediate strings</li>
+                                <li>Scalable performance</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>Cons</h4>
+                            <ul>
+                                <li>Slightly more complex</li>
+                                <li>Memory overhead for buffer</li>
+                                <li>Overkill for small strings</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="output-section hidden" id="output3">
+                        <div class="output-title">Output:</div>
+                        <div class="output-text" id="result3"></div>
+                        <div class="performance-metrics">
+                            <div class="metric-card">
+                                <div class="metric-value" id="time3">-</div>
+                                <div class="metric-label">Execution Time (ms)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Method 4: Substring/Slice -->
+            <div class="method-section method4">
+                <div class="method-header">
+                    <div class="method-title">
+                        Method 4: Build then Remove Last Comma
+                        <span class="complexity-badge">Time: O(n) | Space: O(n)</span>
+                    </div>
+                </div>
+                <div class="method-body">
+                    <div class="code-block" data-lang="JavaScript">
+function printNumbers4(n) {
+    let result = "";
+    for (let i = 1; i <= n; i++) {
+        result += i + ", ";  // Always add comma
+    }
+    // Remove last 2 characters (", ")
+    return result.slice(0, -2);
+}
+
+// Alternative with substring:
+function printNumbers4Alt(n) {
+    let result = "";
+    for (let i = 1; i <= n; i++) {
+        result += i + ", ";
+    }
+    return result.substring(0, result.length - 2);
+}</div>
+                    
+                    <div class="explanation">
+                        <strong>How it works:</strong> Build the string with comma after every number, then remove the last comma and space.
+                        <br><br>
+                        <strong>slice() vs substring():</strong>
+                        <li>slice(-2) removes last 2 characters</li>
+                        <li>substring(0, length-2) removes last 2 characters</li>
+                        <li>slice() handles negative indices better</li>
+                    </div>
+                    
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>Pros</h4>
+                            <ul>
+                                <li>No condition in loop</li>
+                                <li>Simple loop logic</li>
+                                <li>Works for edge cases</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>Cons</h4>
+                            <ul>
+                                <li>Extra string operation</li>
+                                <li>Builds unnecessary characters</li>
+                                <li>String concatenation overhead</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="output-section hidden" id="output4">
+                        <div class="output-title">Output:</div>
+                        <div class="output-text" id="result4"></div>
+                        <div class="performance-metrics">
+                            <div class="metric-card">
+                                <div class="metric-value" id="time4">-</div>
+                                <div class="metric-label">Execution Time (ms)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Complexity Analysis -->
+            <div class="method-section" style="border-left-color: #9b59b6;">
+                <div class="method-header">
+                    <div class="method-title">
+                        Complexity Analysis Summary
+                    </div>
+                </div>
+                <div class="method-body">
+                    <div class="explanation">
+                        <strong>Time Complexity Analysis:</strong>
+                        <br><br>
+                        <strong>All methods: O(n)</strong>
+                        <li>We must visit each number from 1 to n</li>
+                        <li>Each number requires processing time</li>
+                        <li>Linear growth with input size</li>
+                        <br>
+                        <strong>Space Complexity Analysis:</strong>
+                        <br><br>
+                        <strong>All methods: O(n)</strong>
+                        <li>Output string length grows linearly with n</li>
+                        <li>For n=100: "1, 2, 3, ... 100" ≈ 300+ characters</li>
+                        <li>Additional space for intermediate storage varies by method</li>
+                        <br>
+                        <strong>Performance Notes:</strong>
+                        <li>JavaScript string concatenation creates new string objects</li>
+                        <li>Array.join() is generally more efficient for building long strings</li>
+                        <li>Modern JavaScript engines optimize string concatenation</li>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
